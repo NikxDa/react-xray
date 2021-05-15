@@ -10,7 +10,7 @@ The storybook is available here: https://react-xray.vercel.app/
 
 ## Preview
 
-[React XRay](assets/xray.png)
+![React XRay](assets/xray.png)
 
 ## Usage
 
