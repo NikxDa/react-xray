@@ -27,7 +27,7 @@ The storybook is available here: https://react-xray.vercel.app/
 ## Usage
 
 ```jsx
-import XRay from 'react-xray';
+import XRay from '@nikxda/react-xray';
 
 const ExampleComponent = () => (
  <div>
