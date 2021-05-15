@@ -16,13 +16,13 @@ The storybook is available here: https://react-xray.vercel.app/
 
 # Features
 
-- :white_check_mark:&nbsp;&nbsp;Very flexible
-- :white_check_mark:&nbsp;&nbsp;Custom effects
-- :white_check_mark:&nbsp;&nbsp;Responsive by default
-- :white_check_mark:&nbsp;&nbsp;Touch support
-- :white_check_mark:&nbsp;&nbsp;Accessibility by default
-- :white_check_mark:&nbsp;&nbsp;Custom transitions
-- :white_check_mark:&nbsp;&nbsp;Zoom mode
+- :gear:&nbsp;&nbsp;Fully customizable
+- :sparkles:&nbsp;&nbsp;Custom `feColorMatrix` effects
+- :computer:&nbsp;&nbsp;Responsive out of the box
+- :iphone:&nbsp;&nbsp;Touch support
+- :eyeglasses:&nbsp;&nbsp;Basic accessibility built-in
+- :tada:&nbsp;&nbsp;Custom transitions
+- :mag:&nbsp;&nbsp;Zoom mode
 
 ## Usage
 
