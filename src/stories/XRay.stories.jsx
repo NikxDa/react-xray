@@ -26,6 +26,8 @@ export const WithCustomTransitions = () => <Template circleInTransition="linear"
 
 export const WithScaledRadius = () => <Template radiusScale={2} />
 
+export const WithZoom = () => <Template zoom={2.5} />
+
 export const CustomRefFocused = () => {
   const ref = useRef(null);
 

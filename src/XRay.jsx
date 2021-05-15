@@ -28,11 +28,18 @@ export default forwardRef(({
     circleInTransition = "elastic.out(1, 0.3)",
     circleInDuration = 0.5,
     circleOutTransition = "expo.out",
-    circleOutDuration = 0.2
+    circleOutDuration = 0.2,
+
+    // Zoom
+    zoom = 1,
 }, ref) => {
+    const normalizedZoom = Math.max(1, zoom);
+
     const wrapperRef = ref || useRef(null);
     const [responsiveRadius, setResponsiveRadius] = useState(useResponsiveRadius ? 50 : fixedRadius);
     const useResponsiveRadius = fixedRadius === null;
+
+    const [clientRect, setClientRect] = useState(null);
 
     const [isFocused, setFocused] = useState(false);
     const [isRevealed, setRevealed] = useState(false);
@@ -62,8 +69,16 @@ export default forwardRef(({
     }
 
     useImageLoad(() => calculateResponsiveRadius(), [wrapperRef.current, radiusScale], href);
+
     useEffect(() => {
-        const resizeHandler = () => calculateResponsiveRadius();
+        const resizeHandler = () => {
+            calculateResponsiveRadius();
+
+            if (wrapperRef.current) {
+                setClientRect(wrapperRef.current.getBoundingClientRect());
+            }
+        }
+
         window.addEventListener("resize", resizeHandler);
 
         return () => {
@@ -74,6 +89,7 @@ export default forwardRef(({
     useEffect(() => {
         if (!wrapperRef.current && !wrapperRef.current.matches) return;
         setMouseOver(wrapperRef.current.matches(":hover"));
+        setClientRect(wrapperRef.current.getBoundingClientRect());
     }, [wrapperRef])
 
     const [circleX, setCircleX] = useState(-1000);
@@ -98,6 +114,32 @@ export default forwardRef(({
         setMouseOver(false);
     };
 
+    const handleTouchStart = (e) => {
+        if (e.touches.length === 0 || !clientRect) return;
+        const touch = e.touches[0];
+        
+        tweenCircleRadius(responsiveRadius, circleInDuration, circleInTransition);
+        setCircleX(touch.clientX - clientRect.left)
+        setCircleY(touch.clientY - clientRect.top);
+        setMouseOver(true);
+        setRevealed(false);
+    }
+
+    const handleTouchEnd = (e) => {
+        tweenCircleRadius(0, circleOutDuration, circleOutTransition);
+        setMouseOver(false);
+    }
+
+    const handleTouchMove = (e) => {
+        if (e.touches.length === 0 || !clientRect) return;
+        const touch = e.touches[0];
+        
+        setCircleX(touch.clientX - clientRect.left)
+        setCircleY(touch.clientY - clientRect.top);
+        setMouseOver(true);
+        setRevealed(false);
+    }
+
     const handleFocus = () => {
         setFocused(true);
     }
@@ -117,13 +159,21 @@ export default forwardRef(({
     return (
         <div
             className="xray"
+
             onMouseMove={handleMouseMove}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onTouchMove={handleTouchMove}
+
             onFocus={handleFocus}
             onBlur={handleBlur}
+
             onKeyDown={handleKeyDown}
             onClick={onClick}
+
             ref={wrapperRef}
             tabIndex={0}
         >
@@ -149,7 +199,9 @@ export default forwardRef(({
                         <image xlinkHref={href} filter="url(#blur-filter)" x="0" y="0" width="100%" />
                     </ConditionalWrapper>
                     <ConditionalWrapper condition={imageLayerEffects.length > 0} wrapper={children => <g filter="url(#image-effects-filter">{children}</g>}>
-                        <image clipPath="url(#xray-circle)" xlinkHref={href} x="0" y="0" width="100%" />
+                        <g clipPath="url(#xray-circle)">
+                            <image xlinkHref={href} x="0" y="0" width="100%" transform={`scale(${normalizedZoom})`} transform-origin={`${circleX} ${circleY}`} />
+                        </g>
                     </ConditionalWrapper>
                 </ConditionalWrapper>
 
