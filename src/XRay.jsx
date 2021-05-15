@@ -16,6 +16,10 @@ export default forwardRef(({
     radiusScale = 1,
     fixedRadius = null,
 
+    // Reveal settings
+    canReveal: revealAllowed = true,
+    autoReveal = false,
+
     // Event handlers
     onClick = () => { },
 
@@ -46,7 +50,7 @@ export default forwardRef(({
     const [isMouseOver, setMouseOver] = useState(false);
 
     const canReveal = useMemo(() => {
-        if (!isFocused || isMouseOver) return false;
+        if (!revealAllowed || autoReveal || !isFocused || isMouseOver) return false;
 
         if (wrapperRef.current && wrapperRef.current.matches) {
             return !wrapperRef.current.matches(":hover");
@@ -99,14 +103,14 @@ export default forwardRef(({
     const handleMouseEnter = () => {
         tweenCircleRadius(responsiveRadius, circleInDuration, circleInTransition);
         setMouseOver(true);
-        setRevealed(false);
+        if (!autoReveal) setRevealed(false);
     };
 
     const handleMouseMove = (e) => {
         setCircleX(e.nativeEvent.offsetX);
         setCircleY(e.nativeEvent.offsetY);
         setMouseOver(true);
-        setRevealed(false);
+        if (!autoReveal) setRevealed(false);
     };
 
     const handleMouseLeave = () => {
@@ -142,6 +146,7 @@ export default forwardRef(({
 
     const handleFocus = () => {
         setFocused(true);
+        if (autoReveal) setRevealed(true);
     }
 
     const handleBlur = () => {
@@ -203,7 +208,7 @@ export default forwardRef(({
                     </ConditionalWrapper>
                     <ConditionalWrapper condition={imageLayerEffects.length > 0} wrapper={children => <g filter="url(#image-effects-filter">{children}</g>}>
                         <g clipPath="url(#xray-circle)">
-                            <image xlinkHref={href} x="0" y="0" width="100%" style={{ transform: `scale(${normalizedZoom})`, transformOrigin: `${circleX}px ${circleY}px` }} />
+                            <image xlinkHref={href} x="0" y="0" width="100%" style={{ transform: `scale(${isRevealed ? 1 : normalizedZoom})`, transformOrigin: `${circleX}px ${circleY}px` }} />
                         </g>
                     </ConditionalWrapper>
                 </ConditionalWrapper>

@@ -56,6 +56,8 @@ The following properties are available:
 |circleInDuration|`number`|`0.5`|The duration of the `circleInTransition`|No|
 |circleOutTransition|`string`|`"expo.out"`|The GSAP transition which will be used to transition the circle out.|No|
 |circleOutDuration|`number`|`0.2`|The duration of the `circleOutTransition`|No|
+|canReveal|`boolean`|`true`|Whether the revealed state can be toggled using the keyboard on focus.|No|
+|autoReveal|`boolean`|`false`|Whether the image should automatically reveal itself upon focus.|No|
 |zoom|`number`|`1`|The amount of zoom.|No|
 
 ## Accessibility
