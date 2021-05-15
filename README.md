@@ -54,7 +54,7 @@ The following properties are available:
 |blurLayerEffects|`string[]`|`[]`|Effects to be applied to the blur layer, see Effects.|No|
 |circleInTransition|`string`|`"elastic.out(1, 0.3)"`|The GSAP transition which will be used to transition the circle in.|No|
 |circleInDuration|`number`|`0.5`|The duration of the `circleInTransition`|No|
-|circleOutTransition|`string`|`"expo.out"|The GSAP transition which will be used to transition the circle out.|No|
+|circleOutTransition|`string`|`"expo.out"`|The GSAP transition which will be used to transition the circle out.|No|
 |circleOutDuration|`number`|`0.2`|The duration of the `circleOutTransition`|No|
 |zoom|`number`|`1`|The amount of zoom.|No|
 
