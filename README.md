@@ -16,7 +16,7 @@ The storybook is available here: https://react-xray.vercel.app/
 
 # Features
 
-- :white_check_mark:&nbsp;Very flexible
+- :white_check_mark:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Very flexible
 - :white_check_mark:&nbsp;Custom effects
 - :white_check_mark:&nbsp;Responsive by default
 - :white_check_mark:&nbsp;Touch support
