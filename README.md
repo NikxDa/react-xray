@@ -30,10 +30,10 @@ The storybook is available here: https://react-xray.vercel.app/
 import XRay from 'react-xray';
 
 const ExampleComponent = () => (
-    <div>
-        <h1>An Example Image</h1>
-        <XRay href="http://picsum.photos/1920/1080" alt="Lorem Picsum">
-    </div>
+ <div>
+  <h1>An Example Image</h1>
+  <XRay href="http://picsum.photos/1920/1080" alt="Lorem Picsum">
+ </div>
 )
 ```
 
@@ -41,35 +41,22 @@ const ExampleComponent = () => (
 
 The following properties are available:
 
-```js
-{
-    // Image attributes
-    href,
-    alt,
-
-    // XRay attributes
-    blur = 15,
-    radiusScale = 1,
-    fixedRadius = null,
-
-    // Event handlers
-    onClick = () => { },
-
-    // Custom effects
-    effects = [],
-    imageLayerEffects = [],
-    blurLayerEffects = [],
-
-    // Transitions
-    circleInTransition = "elastic.out(1, 0.3)",
-    circleInDuration = 0.5,
-    circleOutTransition = "expo.out",
-    circleOutDuration = 0.2,
-
-    // Zoom
-    zoom = 1,
-}
-```
+|Prop Name|Type|Default Value|Description|Required|
+|---|---|---|---|---|
+|href|`string`|-|The image URL.|Yes|
+|alt|`string`|-|A description of the image.|Yes|
+|blur|`number`|`15`|The amount of blur.|No|
+|radiusScale|`number`|`1`|The factor by which to scale the default responsive radius.|No|
+|fixedRadius|`number`|`null`|If no responsive radius is desired, a fixed radius can be applied.|No|
+|onClick|`function`|`()=>{}`|An onClick handler.|No|
+|effects|`string[]`|`[]`|Effects to be applied globally, see Effects.|No|
+|imageLayerEffects|`string[]`|`[]`|Effects to be applied to the image layer, see Effects.|No|
+|blurLayerEffects|`string[]`|`[]`|Effects to be applied to the blur layer, see Effects.|No|
+|circleInTransition|`string`|`"elastic.out(1, 0.3)"`|The GSAP transition which will be used to transition the circle in.|No|
+|circleInDuration|`number`|`0.5`|The duration of the `circleInTransition`|No|
+|circleOutTransition|`string`|`"expo.out"|The GSAP transition which will be used to transition the circle out.|No|
+|circleOutDuration|`number`|`0.2`|The duration of the `circleOutTransition`|No|
+|zoom|`number`|`1`|The amount of zoom.|No|
 
 ## Accessibility
 
