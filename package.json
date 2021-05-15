@@ -14,5 +14,25 @@
   "dependencies": {
     "gsap": "^3.6.1",
     "react": "^17.0.2"
-  }
+  },
+  "name": "react-xray",
+  "description": "> Reveal images on user interaction",
+  "version": "0.1.0",
+  "main": "dist/xray.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikxDa/react-xray.git"
+  },
+  "keywords": [
+    "React",
+    "XRay",
+    "Image",
+    "Reveal"
+  ],
+  "author": "NikxDa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NikxDa/react-xray/issues"
+  },
+  "homepage": "https://github.com/NikxDa/react-xray#readme"
 }
