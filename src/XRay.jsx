@@ -176,6 +176,9 @@ export default forwardRef(({
 
             ref={wrapperRef}
             tabIndex={0}
+
+            role="img"
+            aria-label={alt}
         >
             <img className="xray__image" src={href} alt={alt} />
             <svg className="xray__svg">
