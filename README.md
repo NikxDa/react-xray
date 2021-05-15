@@ -3,7 +3,7 @@
 
 ## Installation
 ```bash
-npm install react-xray
+npm install @nikxda/react-xray
 ```
 
 ## Try it online

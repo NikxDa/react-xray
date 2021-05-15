@@ -17,7 +17,7 @@
     "react": "^17",
     "react-dom": "^17"
   },
-  "name": "react-xray",
+  "name": "@nikxda/react-xray",
   "description": "> Reveal images on user interaction",
   "version": "0.1.0",
   "main": "dist/xray.js",
