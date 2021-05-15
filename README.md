@@ -2,7 +2,9 @@
 > Accessible image component that reveals images on user interaction
 
 ## Installation
-> npm install react-xray
+```bash
+npm install react-xray
+```
 
 ## Try it online
 
