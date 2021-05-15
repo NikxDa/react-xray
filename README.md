@@ -14,6 +14,16 @@ The storybook is available here: https://react-xray.vercel.app/
 
 ![React XRay](assets/xray.gif)
 
+# Features
+
+- :white_check_mark: Very flexible
+- :white_check_mark: Custom effects
+- :white_check_mark: Responsive by default
+- :white_check_mark: Touch support
+- :white_check_mark: Accessibility by default
+- :white_check_mark: Custom transitions
+- :white_check_mark: Zoom mode
+
 ## Usage
 
 ```jsx
