@@ -203,7 +203,7 @@ export default forwardRef(({
                     </ConditionalWrapper>
                     <ConditionalWrapper condition={imageLayerEffects.length > 0} wrapper={children => <g filter="url(#image-effects-filter">{children}</g>}>
                         <g clipPath="url(#xray-circle)">
-                            <image xlinkHref={href} x="0" y="0" width="100%" transform={`scale(${normalizedZoom})`} transform-origin={`${circleX} ${circleY}`} />
+                            <image xlinkHref={href} x="0" y="0" width="100%" style={{ transform: `scale(${normalizedZoom})`, transformOrigin: `${circleX}px ${circleY}px` }} />
                         </g>
                     </ConditionalWrapper>
                 </ConditionalWrapper>
