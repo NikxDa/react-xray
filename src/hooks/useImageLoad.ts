@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default (callback, dependencies, imageUrl) => {
+export default (callback: () => void, dependencies: React.DependencyList, imageUrl: string) => {
     const [imageLoaded, setImageLoaded] = useState(false);
 
     useEffect(() => {

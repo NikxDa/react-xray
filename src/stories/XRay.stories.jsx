@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import XRay from '../XRay';
+import XRay from '../../dist/xray';
 import exampleImage from './example.jpeg';
 
 export default {
@@ -14,7 +14,7 @@ const Template = args => (
   </div>
 );
 
-export const Default = () => <Template alt="Test" href={exampleImage} />
+export const Default = () => <Template />
 
 export const WithCustomBlur = () => <Template blur={2} />
 

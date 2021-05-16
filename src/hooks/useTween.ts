@@ -1,12 +1,12 @@
 import { TweenMax } from "gsap";
 import { useState } from "react";
 
-export default (initialValue) => {
+export default (initialValue: number): [number, (value: number) => void, (targetValue: number, duration: number, easing: string) => void] => {
   const [currentValue, setCurrentValue] = useState(initialValue);
-  const [tweenInstance, setTweenInstance] = useState(null);
+  const [tweenInstance, setTweenInstance] = useState<TweenMax | null>(null);
 
   const tweenTo = (
-    targetValue,
+    targetValue: number,
     duration = 0.5,
     easing = "elastic.out(1, 0.3)"
   ) => {
@@ -24,7 +24,7 @@ export default (initialValue) => {
     setTweenInstance(tween)
   };
 
-  const setValue = value => {
+  const setValue = (value: number) => {
       if (tweenInstance) {
           tweenInstance.kill();
           setTweenInstance(null);

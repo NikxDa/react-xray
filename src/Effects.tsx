@@ -1,4 +1,12 @@
-export default ({ effects, id }) => {
+import React from "react";
+
+export default ({
+    effects,
+    id 
+}: {
+    effects: string[],
+    id: string
+}) => {
     if (effects.length === 0) return null;
 
     return (

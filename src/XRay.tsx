@@ -1,12 +1,38 @@
-import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import React, { forwardRef, KeyboardEvent, MouseEventHandler, MutableRefObject, SyntheticEvent, TouchEvent, useEffect, useMemo, useRef, useState } from "react";
 import ConditionalWrapper from "./ConditionalWrapper";
 import Effects from "./Effects";
 import useImageLoad from "./hooks/useImageLoad";
 import useTween from "./hooks/useTween";
+import PropTypes from "prop-types";
 
-import "./XRay.css";
+import * as Styles from "./XRay.styles";
 
-export default forwardRef(({
+interface XRayProps {
+    href: string,
+    alt: string,
+
+    blur?: number,
+    radiusScale?: number,
+    fixedRadius?: number,
+
+    canReveal?: boolean,
+    autoReveal?: boolean,
+
+    onClick?: MouseEventHandler<HTMLDivElement>,
+
+    effects?: string[],
+    imageLayerEffects?: string[],
+    blurLayerEffects?: string[],
+
+    circleInTransition?: string,
+    circleInDuration?: number,
+    circleOutTransition?: string,
+    circleOutDuration?: number,
+
+    zoom?: number
+}
+
+const XRay = forwardRef<HTMLDivElement, XRayProps>(({
     // Image attributes
     href,
     alt,
@@ -39,11 +65,12 @@ export default forwardRef(({
 }, ref) => {
     const normalizedZoom = Math.max(1, zoom);
 
-    const wrapperRef = ref || useRef(null);
-    const [responsiveRadius, setResponsiveRadius] = useState(useResponsiveRadius ? 50 : fixedRadius);
+    const wrapperRef = ref as MutableRefObject<HTMLDivElement> || useRef<HTMLDivElement>(null);
     const useResponsiveRadius = fixedRadius === null;
 
-    const [clientRect, setClientRect] = useState(null);
+    const [responsiveRadius, setResponsiveRadius] = useState(useResponsiveRadius ? 50 : fixedRadius);
+
+    const [clientRect, setClientRect] = useState<DOMRect | null>(null);
 
     const [isFocused, setFocused] = useState(false);
     const [isRevealed, setRevealed] = useState(false);
@@ -51,7 +78,7 @@ export default forwardRef(({
 
     const canReveal = useMemo(() => {
         if (!revealAllowed || autoReveal || !isFocused || isMouseOver) return false;
-
+        
         if (wrapperRef.current && wrapperRef.current.matches) {
             return !wrapperRef.current.matches(":hover");
         } else {
@@ -91,24 +118,27 @@ export default forwardRef(({
     }, []);
 
     useEffect(() => {
-        if (!wrapperRef.current && !wrapperRef.current.matches) return;
+        if (!wrapperRef.current || !wrapperRef.current.matches) return;
         setMouseOver(wrapperRef.current.matches(":hover"));
         setClientRect(wrapperRef.current.getBoundingClientRect());
     }, [wrapperRef])
 
     const [circleX, setCircleX] = useState(-1000);
     const [circleY, setCircleY] = useState(-1000);
-    const [circleRadius, setCircleRadius, tweenCircleRadius] = useTween(0);
+    const [circleRadius,, tweenCircleRadius] = useTween(0);
 
     const handleMouseEnter = () => {
+        if (!responsiveRadius) return;
+
         tweenCircleRadius(responsiveRadius, circleInDuration, circleInTransition);
         setMouseOver(true);
         if (!autoReveal) setRevealed(false);
     };
 
-    const handleMouseMove = (e) => {
-        setCircleX(e.nativeEvent.offsetX);
-        setCircleY(e.nativeEvent.offsetY);
+    const handleMouseMove = (e: SyntheticEvent) => {
+        const nativeEvent: MouseEvent = e.nativeEvent as MouseEvent;
+        setCircleX(nativeEvent.offsetX);
+        setCircleY(nativeEvent.offsetY);
         setMouseOver(true);
         if (!autoReveal) setRevealed(false);
     };
@@ -118,10 +148,10 @@ export default forwardRef(({
         setMouseOver(false);
     };
 
-    const handleTouchStart = (e) => {
-        if (e.touches.length === 0 || !clientRect) return;
+    const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
+        if (e.touches.length === 0 || !clientRect || !responsiveRadius) return;
         const touch = e.touches[0];
-        
+
         tweenCircleRadius(responsiveRadius, circleInDuration, circleInTransition);
         setCircleX(touch.clientX - clientRect.left)
         setCircleY(touch.clientY - clientRect.top);
@@ -129,15 +159,15 @@ export default forwardRef(({
         setRevealed(false);
     }
 
-    const handleTouchEnd = (e) => {
+    const handleTouchEnd = () => {
         tweenCircleRadius(0, circleOutDuration, circleOutTransition);
         setMouseOver(false);
     }
 
-    const handleTouchMove = (e) => {
+    const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
         if (e.touches.length === 0 || !clientRect) return;
         const touch = e.touches[0];
-        
+
         setCircleX(touch.clientX - clientRect.left)
         setCircleY(touch.clientY - clientRect.top);
         setMouseOver(true);
@@ -154,7 +184,7 @@ export default forwardRef(({
         setRevealed(false);
     }
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
         // Space key
         if (isFocused && canReveal && e.keyCode === 32) {
             setRevealed(!isRevealed);
@@ -184,9 +214,11 @@ export default forwardRef(({
 
             role="img"
             aria-label={alt}
+
+            style={Styles.WrapperStyles}
         >
-            <img className="xray__image" src={href} alt={alt} />
-            <svg className="xray__svg">
+            <img className="xray__image" src={href} alt={alt} style={Styles.ImageStyles} />
+            <svg className="xray__svg" style={Styles.SVGStyles}>
                 <defs>
                     <clipPath id="xray-circle">
                         <circle cx={circleX} cy={circleY} r={circleRadius} />
@@ -203,20 +235,55 @@ export default forwardRef(({
                 </defs>
 
                 <ConditionalWrapper condition={effects.length > 0} wrapper={children => <g filter="url(#effects-filter)">{children}</g>}>
-                    <ConditionalWrapper condition={blurLayerEffects.length > 0} wrapper={children => <g filter="url(#blur-effects-filter">{children}</g>}>
-                        <image xlinkHref={href} filter="url(#blur-filter)" x="0" y="0" width="100%" />
-                    </ConditionalWrapper>
-                    <ConditionalWrapper condition={imageLayerEffects.length > 0} wrapper={children => <g filter="url(#image-effects-filter">{children}</g>}>
-                        <g clipPath="url(#xray-circle)">
-                            <image xlinkHref={href} x="0" y="0" width="100%" style={{ transform: `scale(${isRevealed ? 1 : normalizedZoom})`, transformOrigin: `${circleX}px ${circleY}px` }} />
-                        </g>
-                    </ConditionalWrapper>
+                    <>
+                        <ConditionalWrapper condition={blurLayerEffects.length > 0} wrapper={children => <g filter="url(#blur-effects-filter">{children}</g>}>
+                            <image xlinkHref={href} filter="url(#blur-filter)" x="0" y="0" width="100%" />
+                        </ConditionalWrapper>
+                        <ConditionalWrapper condition={imageLayerEffects.length > 0} wrapper={children => <g filter="url(#image-effects-filter">{children}</g>}>
+                            <g clipPath="url(#xray-circle)">
+                                <image xlinkHref={href} x="0" y="0" width="100%" style={{ transform: `scale(${isRevealed ? 1 : normalizedZoom})`, transformOrigin: `${circleX}px ${circleY}px` }} />
+                            </g>
+                        </ConditionalWrapper>
+                    </>
                 </ConditionalWrapper>
 
                 {(isFocused && !isRevealed && canReveal && (
-                    <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="currentColor">Press 'Space' to reveal</text>    
+                    <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="currentColor">Press 'Space' to reveal</text>
                 ))}
             </svg>
         </div>
     );
 });
+
+XRay.propTypes = {
+    href: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
+
+    // XRay attributes
+    blur: PropTypes.number,
+    radiusScale: PropTypes.number,
+    fixedRadius: PropTypes.number,
+
+    // Reveal settings
+    canReveal: PropTypes.bool,
+    autoReveal: PropTypes.bool,
+
+    // Event handlers
+    onClick: PropTypes.func,
+
+    // Custom effects
+    effects: PropTypes.arrayOf(PropTypes.string.isRequired),
+    imageLayerEffects: PropTypes.arrayOf(PropTypes.string.isRequired),
+    blurLayerEffects: PropTypes.arrayOf(PropTypes.string.isRequired),
+
+    // Transitions
+    circleInTransition: PropTypes.string,
+    circleInDuration: PropTypes.number,
+    circleOutTransition: PropTypes.string,
+    circleOutDuration: PropTypes.number,
+
+    // Zoom
+    zoom: PropTypes.number
+}
+
+export default XRay;

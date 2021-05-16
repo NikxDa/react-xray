@@ -1,12 +1,18 @@
 {
   "devDependencies": {
     "@storybook/react": "^6.2.9",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.2.2",
+    "babel-runtime": "^6.26.0",
     "esbuild": "^0.11.20",
+    "prop-types": "^15.7.2",
+    "rollup": "^2.48.0",
+    "rollup-plugin-typescript2": "^0.30.0",
     "storybook": "^6.2.9"
   },
   "scripts": {
-    "build": "node .esbuild.js",
+    "build": "rollup -c",
+    "start": "rollup -c -w",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
