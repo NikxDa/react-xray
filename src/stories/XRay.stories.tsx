@@ -8,7 +8,7 @@ export default {
   title: 'XRay',
 };
 
-const Wrapper = ({ children }) => (
+const Wrapper = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   <div style={{ maxWidth: "500px", margin: "50px auto", fontFamily: 'sans-serif' }}>
     {children}
   </div>
