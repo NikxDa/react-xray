@@ -32,7 +32,7 @@ import XRay from '@nikxda/react-xray';
 const ExampleComponent = () => (
  <div>
   <h1>An Example Image</h1>
-  <XRay href="http://picsum.photos/1920/1080" alt="Lorem Picsum">
+  <XRay href="http://picsum.photos/1920/1080" alt="Lorem Picsum" />
  </div>
 )
 ```
