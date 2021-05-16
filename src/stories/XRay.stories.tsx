@@ -8,10 +8,23 @@ export default {
   title: 'XRay',
 };
 
-const Template = (args: Omit<XRayProps, "href" | "alt">) => (
-  <div style={{ maxWidth: "500px", margin: "50px auto" }}>
-    <XRay href={exampleImage} alt="Example Image" {...args} />
+const Wrapper = ({ children }) => (
+  <div style={{ maxWidth: "500px", margin: "50px auto", fontFamily: 'sans-serif' }}>
+    {children}
   </div>
+)
+
+const Citation = () => (
+  <cite style={{ display: 'block', color: '#777', textAlign: 'center', marginTop: '20px', fontSize: '12px' }}>
+    Image Credit: <a href="https://unsplash.com/photos/GuWOOf1HvH0" target="_blank" style={{ color: '#777' }}>Unsplash - john ko - @jko001</a>
+  </cite>
+)
+
+const Template = (args: Omit<XRayProps, "href" | "alt">) => (
+  <Wrapper>
+    <XRay href={exampleImage} alt="Example Image" {...args} />
+    <Citation />
+  </Wrapper>
 );
 
 export const Default = () => <Template />
@@ -41,8 +54,9 @@ export const CustomRefFocused = () => {
   }, [ref])
 
   return (
-    <div style={{ maxWidth: "500px", margin: "50px auto" }}>
+    <Wrapper>
       <XRay href={exampleImage} alt="Example Image" ref={ref} />
-    </div>
+      <Citation />
+    </Wrapper>
   );
 }
