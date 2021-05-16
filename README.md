@@ -68,7 +68,7 @@ XRay supports custom effects on three layers:
 - The image layer effects are applied only to the revealed image, therefore to what is visible in the circular cutout. The corresponding property is `imageLayerEffects`.
 - The blur layer effects are applied only to the blurred section of the image. The corresponding property is `blurLayerEffects`.
 
-Each of the three proprties take a `string[]` with each entry of the array being an effect matrix as per the <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix" target="_blank">MDN specification found here</a>.
+Each of the three proprties take a `string[]` with each entry of the array being an effect matrix as per the [MDN specification found here](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix).
 For example, to darken the blurry part of the image, one may supply the value `[".3 0 0 0 0 0 .3 0 0 0 0 0 .3 0 0 0 0 0 1 0"]` for `blurLayerEffects`.
 
 ## Accessibility
