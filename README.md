@@ -76,7 +76,7 @@ For example, to darken the blurry part of the image, one may supply the value `[
 
 React XRay provides basic accessibility out of the box. It features touch support for mobile devices and will allow the image to be revealed when the element has the focus and the mouse is not currently over the image.
 In this case, the component will display a message saying that the image can be revealed by pressing space. The responsiveness comes from the fact that a single radius given in pixels will likely not be suitable for all screen sizes.
-XRay therefore calculates a "responsive" radius by tracking the wrapper dimensions. The default diameter of the circular cutout is one third of the shorter side. If this choice is not suitable, the responsive radius 
+XRay therefore calculates a "responsive" radius by tracking the wrapper dimensions. The default diameter of the circular cutout is half the length of the shorter side. If this choice is not suitable, the responsive radius 
 can be scaled using `radiusScale` or set to a fixed value using `fixedRadius`.
 
 ## License
