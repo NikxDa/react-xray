@@ -17,6 +17,7 @@ export interface XRayProps {
 
     canReveal?: boolean,
     autoReveal?: boolean,
+    persistReveal?: boolean,
 
     onClick?: MouseEventHandler<HTMLDivElement>,
 
@@ -45,6 +46,7 @@ const XRay = forwardRef<HTMLDivElement, XRayProps>(({
     // Reveal settings
     canReveal: revealAllowed = true,
     autoReveal = false,
+    persistReveal = false,
 
     // Event handlers
     onClick = () => { },
@@ -73,8 +75,13 @@ const XRay = forwardRef<HTMLDivElement, XRayProps>(({
     const [clientRect, setClientRect] = useState<DOMRect | null>(null);
 
     const [isFocused, setFocused] = useState(false);
-    const [isRevealed, setRevealed] = useState(false);
+    const [isRevealed, setRevealedMain] = useState(false);
     const [isMouseOver, setMouseOver] = useState(false);
+
+    const setRevealed = (revealed: boolean) => {
+        if (!revealed && persistReveal) return;
+        setRevealedMain(revealed);
+    }
 
     const canReveal = useMemo(() => {
         if (!revealAllowed || autoReveal || !isFocused || isMouseOver) return false;
@@ -267,6 +274,7 @@ XRay.propTypes = {
     // Reveal settings
     canReveal: PropTypes.bool,
     autoReveal: PropTypes.bool,
+    persistReveal: PropTypes.bool,
 
     // Event handlers
     onClick: PropTypes.func,

@@ -43,6 +43,8 @@ export const WithZoom = () => <Template zoom={2.5} blur={0} canReveal={false} />
 
 export const WithRevealDisabled = () => <Template canReveal={false} />
 
+export const WithRevealPersisted = () => <Template autoReveal persistReveal />
+
 export const WithAutoReveal = () => <Template autoReveal />
 
 export const CustomRefFocused = () => {
