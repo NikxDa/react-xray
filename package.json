@@ -6,6 +6,7 @@
     "babel-runtime": "^6.26.0",
     "prop-types": "^15.7.2",
     "rollup": "^2.48.0",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
     "storybook": "^6.2.9"
   },
@@ -25,7 +26,7 @@
   "name": "@nikxda/react-xray",
   "description": "> Reveal images on user interaction",
   "version": "1.0.0",
-  "main": "dist/xray.js",
+  "main": "dist/XRay.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NikxDa/react-xray.git"
