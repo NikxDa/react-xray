@@ -23,6 +23,7 @@ The storybook is available here: https://react-xray.vercel.app/
 - :eyeglasses:&nbsp;&nbsp;Basic accessibility built-in
 - :tada:&nbsp;&nbsp;Custom transitions
 - :mag:&nbsp;&nbsp;Zoom mode
+- :100:&nbsp;&nbsp;3KB minified and gzip-ed
 
 ## Usage
 
