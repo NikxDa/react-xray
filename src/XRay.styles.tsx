@@ -5,7 +5,7 @@ export const WrapperStyles: CSSProperties = {
     isolation: 'isolate',
     display: 'block',
     color: 'white',
-    fontFamily: 'sans-serif',
+    fontFamily: 'inherit',
 };
 
 export const ImageStyles: CSSProperties = {
