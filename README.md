@@ -49,9 +49,9 @@ The following properties are available:
 |radiusScale|`number`|`1`|The factor by which to scale the default responsive radius.|No|
 |fixedRadius|`number`|`null`|If no responsive radius is desired, a fixed radius can be applied.|No|
 |onClick|`function`|`()=>{}`|An onClick handler.|No|
-|effects|`string[]`|`[]`|Effects to be applied globally, see Effects.|No|
-|imageLayerEffects|`string[]`|`[]`|Effects to be applied to the image layer, see Effects.|No|
-|blurLayerEffects|`string[]`|`[]`|Effects to be applied to the blur layer, see Effects.|No|
+|effects|`string[]`|`[]`|Effects to be applied globally, see [Effects](#effects).|No|
+|imageLayerEffects|`string[]`|`[]`|Effects to be applied to the image layer, see [Effects](#effects).|No|
+|blurLayerEffects|`string[]`|`[]`|Effects to be applied to the blur layer, see [Effects](#effects).|No|
 |circleInTransition|`string`|`"elastic.out(1, 0.3)"`|The GSAP transition which will be used to transition the circle in.|No|
 |circleInDuration|`number`|`0.5`|The duration of the `circleInTransition`|No|
 |circleOutTransition|`string`|`"expo.out"`|The GSAP transition which will be used to transition the circle out.|No|
@@ -59,6 +59,17 @@ The following properties are available:
 |canReveal|`boolean`|`true`|Whether the revealed state can be toggled using the keyboard on focus.|No|
 |autoReveal|`boolean`|`false`|Whether the image should automatically reveal itself upon focus.|No|
 |zoom|`number`|`1`|The amount of zoom.|No|
+
+## Effects
+
+XRay supports custom effects on three layers:
+
+- The global layer effects are applied to the whole component, therefore affecting all visuals. The corresponding property is `effects`.
+- The image layer effects are applied only to the revealed image, therefore to what is visible in the circular cutout. The corresponding property is `imageLayerEffects`.
+- The blur layer effects are applied only to the blurred section of the image. The corresponding property is `blurLayerEffects`.
+
+Each of the three proprties take a `string[]` with each entry of the array being an effect matrix as per the [MDN specification found here](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix).
+For example, to darken the blurry part of the image, one may supply the value `[".3 0 0 0 0 0 .3 0 0 0 0 0 .3 0 0 0 0 0 1 0"]` for `blurLayerEffects`.
 
 ## Accessibility
 
