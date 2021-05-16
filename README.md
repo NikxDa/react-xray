@@ -17,6 +17,7 @@ The storybook is available here: https://react-xray.vercel.app/
 # Features
 
 - :gear:&nbsp;&nbsp;Fully customizable
+- :tophat:&nbsp;&nbsp;TypeScript support built in
 - :sparkles:&nbsp;&nbsp;Custom `feColorMatrix` effects
 - :computer:&nbsp;&nbsp;Responsive out of the box
 - :iphone:&nbsp;&nbsp;Touch support
