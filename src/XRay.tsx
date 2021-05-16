@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 import * as Styles from "./XRay.styles";
 
-interface XRayProps {
+export interface XRayProps {
     href: string,
     alt: string,
 

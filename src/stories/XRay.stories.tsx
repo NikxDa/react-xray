@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import XRay from '../../dist/xray';
+import XRay, { XRayProps } from '../XRay';
 import exampleImage from './example.jpeg';
 
 export default {
@@ -8,7 +8,7 @@ export default {
   title: 'XRay',
 };
 
-const Template = args => (
+const Template = (args: Omit<XRayProps, "href" | "alt">) => (
   <div style={{ maxWidth: "500px", margin: "50px auto" }}>
     <XRay href={exampleImage} alt="Example Image" {...args} />
   </div>
@@ -33,7 +33,7 @@ export const WithRevealDisabled = () => <Template canReveal={false} />
 export const WithAutoReveal = () => <Template autoReveal />
 
 export const CustomRefFocused = () => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
