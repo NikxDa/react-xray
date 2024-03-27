@@ -1,49 +1,49 @@
 {
-  "devDependencies": {
-    "@storybook/react": "^6.2.9",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-loader": "^8.2.2",
-    "babel-runtime": "^6.26.0",
-    "rollup": "^2.48.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.30.0",
-    "storybook": "^6.2.9"
-  },
-  "scripts": {
-    "build": "rollup -c",
-    "start": "rollup -c -w",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
-  },
-  "dependencies": {
-    "gsap": "^3.6.1",
-    "prop-types": "^15.7.2"
-  },
-  "peerDependencies": {
-    "react": "^17",
-    "react-dom": "^17"
-  },
-  "name": "@nikxda/react-xray",
-  "description": "> Reveal images on user interaction",
-  "version": "1.0.1",
-  "main": "dist/XRay.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/NikxDa/react-xray.git"
-  },
-  "files": [
-    "dist/"
-  ],
-  "keywords": [
-    "React",
-    "XRay",
-    "Image",
-    "Reveal"
-  ],
-  "author": "NikxDa",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/NikxDa/react-xray/issues"
-  },
-  "homepage": "https://github.com/NikxDa/react-xray#readme"
+    "devDependencies": {
+        "@rollup/plugin-terser": "^0.4.4",
+        "@storybook/addon-webpack5-compiler-swc": "^1.0.2",
+        "@storybook/react": "^8.0.4",
+        "@storybook/react-webpack5": "^8.0.4",
+        "@types/prop-types": "^15.7.12",
+        "@types/react": "^18.2.73",
+        "babel-core": "^7.0.0-bridge.0",
+        "babel-loader": "^9.1.3",
+        "babel-runtime": "^6.26.0",
+        "rollup": "^4.13.1",
+        "rollup-plugin-typescript2": "^0.36.0",
+        "storybook": "^8.0.4"
+    },
+    "scripts": {
+        "build": "rollup -c",
+        "start": "rollup -c -w",
+        "storybook": "storybook"
+    },
+    "dependencies": {
+        "gsap": "^3.12.5",
+        "prop-types": "^15.8.1"
+    },
+    "type": "module",
+    "name": "@nikxda/react-xray",
+    "description": "> Reveal images on user interaction",
+    "version": "1.0.1",
+    "main": "dist/XRay.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/NikxDa/react-xray.git"
+    },
+    "files": [
+        "dist/"
+    ],
+    "keywords": [
+        "React",
+        "XRay",
+        "Image",
+        "Reveal"
+    ],
+    "author": "NikxDa",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/NikxDa/react-xray/issues"
+    },
+    "homepage": "https://github.com/NikxDa/react-xray#readme"
 }

@@ -1,13 +1,13 @@
 import typescript from 'rollup-plugin-typescript2'
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 
-import pkg from './package.json'
+import { defineConfig } from 'rollup';
 
-export default {
+export default defineConfig({
     input: 'src/XRay.tsx',
     output: [
         {
-            file: pkg.main,
+            file: 'dist/XRay.js',
             format: 'cjs',
             exports: 'named',
             sourcemap: true,
@@ -17,6 +17,5 @@ export default {
     plugins: [
         typescript(),
         terser()
-    ],
-    external: ['react', 'react-dom']
-}
+    ]
+})
