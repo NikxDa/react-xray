@@ -25,7 +25,7 @@
     "type": "module",
     "name": "@nikxda/react-xray",
     "description": "> Reveal images on user interaction",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "main": "dist/XRay.js",
     "repository": {
         "type": "git",
