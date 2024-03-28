@@ -29,6 +29,13 @@ const Template = (args: Omit<XRayProps, "href" | "alt">) => (
 
 export const Default = () => <Template />
 
+export const SideBySide = () => (
+    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '2rem' }}>
+      <Template />
+      <Template />
+    </div>
+  )
+
 export const WithCustomBlur = () => <Template blur={2} />
 
 export const WithEffects = () => <Template blurLayerEffects={[".3 0 0 0 0 0 .3 0 0 0 0 0 .3 0 0 0 0 0 1 0"]} />

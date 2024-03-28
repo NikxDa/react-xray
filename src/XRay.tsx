@@ -1,4 +1,4 @@
-import React, { forwardRef, KeyboardEvent, MouseEventHandler, MutableRefObject, SyntheticEvent, TouchEvent, useEffect, useMemo, useRef, useState } from "react";
+import React, { forwardRef, KeyboardEvent, MouseEventHandler, MutableRefObject, SyntheticEvent, TouchEvent, useEffect, useId, useMemo, useRef, useState } from "react";
 import ConditionalWrapper from "./ConditionalWrapper";
 import Effects from "./Effects";
 import useImageLoad from "./hooks/useImageLoad";
@@ -65,6 +65,20 @@ const XRay = forwardRef<HTMLDivElement, XRayProps>(({
     // Zoom
     zoom = 1,
 }, ref) => {
+    const id = useId()
+
+    const circleId = `xray-circle-${id}`;
+    const blurId = `blur-filter-${id}`;
+    const effectsId = `effects-filter-${id}`;
+    const imageEffectsId = `image-effects-filter-${id}`;
+    const blurEffectsId = `blur-effects-filter-${id}`;
+
+    const circleUrl = `url(#${circleId})`;
+    const blurUrl = `url(#${blurId})`;
+    const effectsUrl = `url(#${effectsId})`;
+    const imageEffectsUrl = `url(#${imageEffectsId})`;
+    const blurEffectsUrl = `url(#${blurEffectsId})`;
+
     const normalizedZoom = Math.max(1, zoom);
 
     const wrapperRef = ref as MutableRefObject<HTMLDivElement> || useRef<HTMLDivElement>(null);
@@ -143,6 +157,7 @@ const XRay = forwardRef<HTMLDivElement, XRayProps>(({
     };
 
     const handleMouseMove = (e: SyntheticEvent) => {
+        console.log("Mouse move", e, circleX, circleY)
         const nativeEvent: MouseEvent = e.nativeEvent as MouseEvent;
         setCircleX(nativeEvent.offsetX);
         setCircleY(nativeEvent.offsetY);
@@ -227,27 +242,27 @@ const XRay = forwardRef<HTMLDivElement, XRayProps>(({
             <img className="xray__image" src={href} alt={alt} style={Styles.ImageStyles} />
             <svg className="xray__svg" style={Styles.SVGStyles}>
                 <defs>
-                    <clipPath id="xray-circle">
+                    <clipPath id={circleId}>
                         <circle cx={circleX} cy={circleY} r={circleRadius} />
                         {isRevealed && <rect x="0" y="0" width="100%" height="100%" />}
                     </clipPath>
 
-                    <filter id="blur-filter">
+                    <filter id={blurId}>
                         <feGaussianBlur in="SourceGraphic" stdDeviation={blur} />
                     </filter>
 
-                    <Effects id="effects-filter" effects={effects} />
-                    <Effects id="image-effects-filter" effects={imageLayerEffects} />
-                    <Effects id="blur-effects-filter" effects={blurLayerEffects} />
+                    <Effects id={effectsId} effects={effects} />
+                    <Effects id={imageEffectsId} effects={imageLayerEffects} />
+                    <Effects id={blurEffectsId} effects={blurLayerEffects} />
                 </defs>
 
-                <ConditionalWrapper condition={effects.length > 0} wrapper={children => <g filter="url(#effects-filter)">{children}</g>}>
+                <ConditionalWrapper condition={effects.length > 0} wrapper={children => <g filter={effectsUrl}>{children}</g>}>
                     <>
-                        <ConditionalWrapper condition={blurLayerEffects.length > 0} wrapper={children => <g filter="url(#blur-effects-filter">{children}</g>}>
-                            <image xlinkHref={href} filter="url(#blur-filter)" x="0" y="0" width="100%" />
+                        <ConditionalWrapper condition={blurLayerEffects.length > 0} wrapper={children => <g filter={blurEffectsUrl}>{children}</g>}>
+                            <image xlinkHref={href} filter={blurUrl} x="0" y="0" width="100%" />
                         </ConditionalWrapper>
-                        <ConditionalWrapper condition={imageLayerEffects.length > 0} wrapper={children => <g filter="url(#image-effects-filter">{children}</g>}>
-                            <g clipPath="url(#xray-circle)">
+                        <ConditionalWrapper condition={imageLayerEffects.length > 0} wrapper={children => <g filter={imageEffectsUrl}>{children}</g>}>
+                            <g clipPath={circleUrl}>
                                 <image xlinkHref={href} x="0" y="0" width="100%" style={{ transform: `scale(${isRevealed ? 1 : normalizedZoom})`, transformOrigin: `${circleX}px ${circleY}px` }} />
                             </g>
                         </ConditionalWrapper>
@@ -294,4 +309,4 @@ XRay.propTypes = {
     zoom: PropTypes.number
 }
 
-export default XRay;
+export default XRay
