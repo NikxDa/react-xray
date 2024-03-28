@@ -8,7 +8,7 @@ export default defineConfig({
     output: [
         {
             file: 'dist/XRay.js',
-            format: 'cjs',
+            format: 'esm',
             exports: 'named',
             sourcemap: true,
             strict: false
