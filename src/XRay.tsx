@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import * as Styles from "./XRay.styles";
 
 export interface XRayProps {
-    href: string,
+    src: string,
     alt: string,
 
     blur?: number,
@@ -35,7 +35,7 @@ export interface XRayProps {
 
 const XRay = forwardRef<HTMLDivElement, XRayProps>(({
     // Image attributes
-    href,
+    src,
     alt,
 
     // XRay attributes
@@ -120,7 +120,7 @@ const XRay = forwardRef<HTMLDivElement, XRayProps>(({
         setResponsiveRadius(calculatedRadius);
     }
 
-    useImageLoad(() => calculateResponsiveRadius(), [wrapperRef.current, radiusScale], href);
+    useImageLoad(() => calculateResponsiveRadius(), [wrapperRef.current, radiusScale], src);
 
     useEffect(() => {
         const resizeHandler = () => {
@@ -239,7 +239,7 @@ const XRay = forwardRef<HTMLDivElement, XRayProps>(({
 
             style={Styles.WrapperStyles}
         >
-            <img className="xray__image" src={href} alt={alt} style={Styles.ImageStyles} />
+            <img className="xray__image" src={src} alt={alt} style={Styles.ImageStyles} />
             <svg className="xray__svg" style={Styles.SVGStyles}>
                 <defs>
                     <clipPath id={circleId}>
@@ -259,11 +259,11 @@ const XRay = forwardRef<HTMLDivElement, XRayProps>(({
                 <ConditionalWrapper condition={effects.length > 0} wrapper={children => <g filter={effectsUrl}>{children}</g>}>
                     <>
                         <ConditionalWrapper condition={blurLayerEffects.length > 0} wrapper={children => <g filter={blurEffectsUrl}>{children}</g>}>
-                            <image xlinkHref={href} filter={blurUrl} x="0" y="0" width="100%" />
+                            <image xlinkHref={src} filter={blurUrl} x="0" y="0" width="100%" />
                         </ConditionalWrapper>
                         <ConditionalWrapper condition={imageLayerEffects.length > 0} wrapper={children => <g filter={imageEffectsUrl}>{children}</g>}>
                             <g clipPath={circleUrl}>
-                                <image xlinkHref={href} x="0" y="0" width="100%" style={{ transform: `scale(${isRevealed ? 1 : normalizedZoom})`, transformOrigin: `${circleX}px ${circleY}px` }} />
+                                <image xlinkHref={src} x="0" y="0" width="100%" style={{ transform: `scale(${isRevealed ? 1 : normalizedZoom})`, transformOrigin: `${circleX}px ${circleY}px` }} />
                             </g>
                         </ConditionalWrapper>
                     </>
@@ -278,7 +278,7 @@ const XRay = forwardRef<HTMLDivElement, XRayProps>(({
 });
 
 XRay.propTypes = {
-    href: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
 
     // XRay attributes
