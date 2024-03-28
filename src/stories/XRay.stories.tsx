@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { ForwardedRef, forwardRef, useEffect, useRef } from 'react';
 
 import XRay, { XRayProps } from '../XRay';
 import exampleImage from './example.jpeg';
@@ -20,12 +20,12 @@ const Citation = () => (
   </cite>
 )
 
-const Template = (args: Omit<XRayProps, "href" | "alt">) => (
+const Template = forwardRef((args: Omit<XRayProps, "src" | "alt">, ref: ForwardedRef<HTMLDivElement>) => (
   <Wrapper>
-    <XRay href={exampleImage} alt="Example Image" {...args} />
+    <XRay src={exampleImage} alt="Example Image" {...args} ref={ref} />
     <Citation />
   </Wrapper>
-);
+))
 
 export const Default = () => <Template />
 
@@ -63,9 +63,6 @@ export const CustomRefFocused = () => {
   }, [ref])
 
   return (
-    <Wrapper>
-      <XRay href={exampleImage} alt="Example Image" ref={ref} />
-      <Citation />
-    </Wrapper>
+    <Template ref={ref} />
   );
 }
